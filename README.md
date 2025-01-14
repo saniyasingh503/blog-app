@@ -62,7 +62,7 @@ All APIs are available at the following base URL:
 ├── .env.test          # Environment variables for testing
 ├── .env.prod          # Environment variables for production
 
-
+```
 
 ## Managing Environments
 To specify a different environment, use the `--env-file` flag when running Docker Compose:
