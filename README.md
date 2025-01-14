@@ -26,12 +26,14 @@ Ensure you have the following installed:
 ```bash
 git clone https://github.com/saniyasingh503/blog-app.git
 cd blog-app
+```
 
 ### 2. Build and Start the Application
 Use Docker Compose to build and start the services.
 
 ```bash
 docker-compose up --build
+```
 
 ### 3. Access the Application
 
@@ -67,12 +69,14 @@ To specify a different environment, use the `--env-file` flag when running Docke
 
 ```bash
 docker-compose --env-file .env.prod up --build
+```
 
 ## Stopping the Services
 To stop and remove the containers, networks, and volumes, run the following command:
 
 ```bash
 docker-compose down
+```
 
 ## Health Checks
 The setup includes health checks for MongoDB and Redis:
