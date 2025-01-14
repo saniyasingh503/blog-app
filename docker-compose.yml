@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  # Web service
+  nodejs:
+    image: saniyasingh503/blog-app-backend 
+    container_name: nodejs-app-container
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=${NODE_ENV}
+      - MONGODB_URI=${MONGODB_URI}
+      - REDIS_HOST=${REDIS_HOST}
+      - REDIS_PORT=${REDIS_PORT}
+      - PORT=${PORT}
+    depends_on:
+      mongodb:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - backend-tier  
+
+  # DB service
+  mongodb:
+    image: saniyasingh503/blog-app-mongo-db  
+    container_name: mongodb-container
+    restart: always
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet  # Run a ping command to check MongoDB health
+      interval: 30s  
+      retries: 3      
+      timeout: 10s    
+      start_period: 5s 
+    networks:
+      - backend-tier 
+
+  # Cache service
+  redis:
+    image: saniyasingh503/blog-app-redis-cache 
+    container_name: redis-container
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"] 
+      interval: 30s  
+      retries: 3     
+      timeout: 10s    
+      start_period: 5s
+    networks:
+      - backend-tier 
+
+networks:
+  backend-tier:
+    driver: bridge 
