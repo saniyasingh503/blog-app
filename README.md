@@ -1,7 +1,38 @@
-# Dockerized Node.js Application
+# Dockerized Blog Application
 
 ## Overview
-This project is a dockerized Node.js application that integrates MongoDB and Redis services. The setup is designed to be scalable, efficient, and configurable for different environments (development, testing, production).
+This project is a **blog application** that is fully containerized and integrates **MongoDB** and **Redis** as supporting services. The entire application stack is orchestrated using **Docker Compose**, with the services connected via a custom Docker network to enable seamless communication.
+
+---
+
+## Project Highlights
+1. **Scalability and Efficiency**: The setup is designed to be scalable and optimized for performance, ensuring smooth operation across different environments such as development, testing, and production.
+2. **Multi-Service Architecture**:
+   - **Web Service**: A Node.js application that handles user requests and business logic.
+   - **Database Service**: MongoDB for persistent data storage.
+   - **Cache Service**: Redis for fast data retrieval through caching.
+
+---
+
+## Key Functionality
+1. **Create Post (POST)**:
+   - A new post is stored in the MongoDB database for long-term persistence.
+   - The post is also cached in Redis for quick access.
+
+2. **Retrieve Post (GET)**:
+   - When retrieving a post, the application first checks the Redis cache.
+   - If the post is found in the cache, it is returned immediately for faster response times.
+   - If not, the application fetches the post from MongoDB, updates the cache, and returns the data to the user.
+
+3. **Update Post (PUT)**:
+   - Updates an existing post in the MongoDB database.
+   - The updated post is also refreshed in the Redis cache to ensure consistency.
+
+4. **Delete Post (DELETE)**:
+   - Removes the post from the MongoDB database.
+   - The corresponding entry in the Redis cache is also invalidated to prevent stale data.
+
+---
 
 ## Features
 - **Node.js**: Backend application written in Node.js.
@@ -11,6 +42,16 @@ This project is a dockerized Node.js application that integrates MongoDB and Red
 - **Dockerized Setup**: Simplified deployment with Docker Compose.
 
 ---
+
+## Technologies Used
+- **Node.js**: Backend framework for handling business logic.
+- **MongoDB**: NoSQL database for storing structured data.
+- **Redis**: In-memory data store for caching and quick access.
+- **Docker**: Containerization platform for running services.
+- **Docker Compose**: Tool for defining and managing multi-container Docker applications.
+
+---
+
 
 ## Prerequisites
 Ensure you have the following installed:
